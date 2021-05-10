@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<title>FlowTow</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/service.js"></script>
+<script src="js/singlemodel.js"></script>
+<style>
+  html,
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: "Open Sans", sans-serif
+  }
+</style>
+
+<body class="theme-l5">
+
+  <!-- Navbar -->
+  <div class="top">
+    <div class="bar theme-d2 left-align large">
+      <a class="bar-item button hide-medium hide-large right padding-large hover-white large theme-d2"
+        href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+      <a href="index.html" class="bar-item button padding-large theme-d4"><i class="fa fa-home margin-right"></i>Home</a>
+      <a href="index.html" class="bar-item button hide-small padding-large hover-white" title="News"><i class="fa fa-globe"></i>
+        All Posts</a>
+      <a href="myposts.html" class="bar-item button hide-small padding-large hover-white" title="My Posts"><i
+          class="fa fa-user"></i> My Posts</a>
+      <a href="#about" class="bar-item button hide-small padding-large hover-white" title="Messages"><i
+          class="fa fa-envelope"></i> About</a>
+
+          <a href="#" class="bar-item button hide-small right padding-large hover-white" title="My Account" >
+            <i class="fa fa-user" id="username-icon"> &nbsp; &nbsp;</i>
+          </a>
+          <a href="" onclick="signOut();" class="bar-item button hide-small right padding-large hover-white" title="Logout" >
+            <i class="fa fa-sign-out" id="sign-out"> &nbsp; &nbsp;</i>
+          </a>
+    </div>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="bar-block theme-d2 hide hide-large hide-medium large">
+    <a href="index.html" class="bar-item button padding-large">All Posts</a>
+    <a href="index.html" class="bar-item button padding-large"> My Posts</a>
+    <a href="#about" class="bar-item button padding-large">About</a>
+  </div>
+  <!-- Page Container -->
+  <div class="container content" style="max-width:1400px;margin-top:80px">
+    <!-- The Grid -->
+    <div class="row-padding">
+      <div class="col m12">
+        <div class="card round white">
+          <div class="container padding">
+            <h6 class="opacity">Welcome to FlowTow</h6>
+            <h6 class="opacity">Single Post</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="single-post"></div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <!-- End Page Container -->
+  </div>
+  <br>
+
+  <script>
+    // Accordion
+    function myFunction(id) {
+      var x = document.getElementById(id);
+      if (x.className.indexOf("show") == -1) {
+        x.className += " show";
+        x.previousElementSibling.className += " theme-d1";
+      } else {
+        x.className = x.className.replace("show", "");
+        x.previousElementSibling.className =
+          x.previousElementSibling.className.replace(" theme-d1", "");
+      }
+    }
+    $('#login').on('submit', function (event) {
+      event.preventDefault();
+      $.ajax({
+        url: "http://localhost:1337/auth/local",
+        method: "POST",
+        data: new FormData(this),
+        contentType: false,
+        cache: false,
+        processData: false,
+        dataType: "json",
+        success: function (data) {
+          getUser(data.user);
+          getJWT(data.jwt);
+        }
+      });
+
+    });
+ 
+
+    // Used to toggle the menu on smaller screens when clicking on the menu button
+    function openNav() {
+      var x = document.getElementById("navDemo");
+      if (x.className.indexOf("show") == -1) {
+        x.className += " show";
+      } else {
+        x.className = x.className.replace(" show", "");
+      }
+    }
+  </script>
+
+</body>
+
+</html>
